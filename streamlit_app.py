@@ -37,9 +37,9 @@ if ingredients_list:
             ingredients+= ing
         else:
             ingredients= ingredients +", " + ing
-    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-    sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" +ing)
     st.subheader(ing + 'Nutriton Information')
+    sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     st.write(ingredients)
  
     insert_T= st.button('Submit Order')
