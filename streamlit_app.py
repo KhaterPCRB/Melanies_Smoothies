@@ -14,33 +14,24 @@ helpful_links = [
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
 
-#===============
-# Coption=st.selectbox(
-#     'How would you like to be contacted ?',
-#     ['Email', 'Home Phone', 'Mobile Phone']
-# )   
 
 # st.write(f"You selected: {Coption} ")
 cnx= st.connection("snowflake")
 session = cnx.session()
-#session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
-
-#st.dataframe(data=my_dataframe, use_container_width=True)
 pd_df=my_dataframe.to_pandas()
 st.dataframe(pd_df)
 name=st.text_input("Enter the Name for the Order")
 ingredients_list= st.multiselect('Choose Up to 5 Ingredients', my_dataframe, max_selections=5)
 if ingredients_list:
     ingredients= ''
-    
     for ing in ingredients_list:
         if ingredients == '':
             ingredients+= ing
         else:
             ingredients= ingredients +", " + ing
     smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" +ing)
-    s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing, pd_df['SEARCH_ON'].iloc[0]
+    s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing, pd_df['SEARCH_ON'].iloc[0]]
     st.write(f'Search Value for {ing} is {s_o}.')
     st.subheader(ing + 'Nutriton Information')
     
