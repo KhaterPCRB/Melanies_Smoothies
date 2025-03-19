@@ -20,7 +20,7 @@ st.title(":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
 # )   
 
 # st.write(f"You selected: {Coption} ")
-cnx= st.connect("snowflake")
+cnx= st.connect("Snowflake")
 session = cnx.session()
 #session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
