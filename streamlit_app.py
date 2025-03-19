@@ -34,7 +34,7 @@ if ingredients_list:
             ingredients= ingredients +", " + ing
     
     
-    #st.write(f'Search Value for {ing} is {s_o}.')
+    st.write(f'Search Value for {ing} is {s_o}.')
     st.subheader(ing + " " + 'Nutriton Information')
     
     sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
@@ -46,7 +46,7 @@ if ingredients_list:
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order) 
             values ('""" + ingredients + """','"""+ name +"""')"""
     
-    #st.write(my_insert_stmt)
+    st.write(my_insert_stmt)
 
     if insert_T:
         
