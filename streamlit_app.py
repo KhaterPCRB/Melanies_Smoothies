@@ -29,9 +29,9 @@ if ingredients_list:
         s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing,'SEARCH_ON'].iloc[0]
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + s_o)
         if ingredients == '':
-            ingredients+= ing
+            ingredients+= s_o
         else:
-            ingredients= ingredients +", " + ing
+            ingredients= ingredients +", " + s_o
     
     
     st.write(f'Search Value for {ing} is {s_o}.')
