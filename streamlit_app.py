@@ -30,20 +30,21 @@ if ingredients_list:
             ingredients+= ing
         else:
             ingredients= ingredients +", " + ing
-    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" +ing)
     s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing,'SEARCH_ON'].iloc[0]
+    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + s_o)
+    
     st.write(f'Search Value for {ing} is {s_o}.')
-    st.subheader(ing + 'Nutriton Information')
+    st.subheader(ing + " " + 'Nutriton Information')
     
     sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     st.write(ingredients)
- 
+     
     insert_T= st.button('Submit Order')
     
     
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order) 
             values ('""" + ingredients + """','"""+ name +"""')"""
-
+    
     #st.write(my_insert_stmt)
 
     if insert_T:
