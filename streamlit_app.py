@@ -40,9 +40,10 @@ if ingredients_list:
         else:
             ingredients= ingredients +", " + ing
     smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" +ing)
-    search_on= pd_df.loc[pd_df['FRUIT_NAME'] == ing, 'SEARCH_ON'].iloc[0]
-    st.write(f'Search Value for {ing} is {SEARCH_ON}.')
+    s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing, 'SEARCH_ON'].iloc[0]
+    st.write(f'Search Value for {ing} is {s_o}.')
     st.subheader(ing + 'Nutriton Information')
+    s
     sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     st.write(ingredients)
  
