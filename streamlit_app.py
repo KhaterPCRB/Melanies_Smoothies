@@ -33,7 +33,7 @@ if ingredients_list:
     st.write(f'Search Value for {fruit_chosen} is {search_on}.')
     st.subheader(fruit_chosen + " " + 'Nutriton Information')
     
-    st.write(ingredient_string)
+    st.write(ingredients_string)
      
     insert_T= st.button('Submit Order')
     
