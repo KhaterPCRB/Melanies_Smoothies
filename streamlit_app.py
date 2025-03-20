@@ -20,25 +20,20 @@ cnx= st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
 pd_df=my_dataframe.to_pandas()
-
 name=st.text_input("Enter the Name for the Order")
 ingredients_list= st.multiselect('Choose Up to 5 Ingredients', my_dataframe, max_selections=5)
 if ingredients_list:
-    ingredients= ''
-    for ing in ingredients_list:
-        s_o= pd_df.loc[pd_df['FRUIT_NAME'] == ing,'SEARCH_ON'].iloc[0]
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + s_o)
-        if ingredients == '':
-            ingredients+= s_o
-        else:
-            ingredients= ingredients +", " + s_o
+    ingredients_string= ''
+    for fruit_chosen in ingredients_list:
+        ingredients_string+= fruit_chosen + ' '
+        search_on= pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen,'SEARCH_ON'].iloc[0]
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on)
+        sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+    #==================================
+    st.write(f'Search Value for {fruit_chosen} is {search_on}.')
+    st.subheader(fruit_chosen + " " + 'Nutriton Information')
     
-    
-    st.write(f'Search Value for {ing} is {s_o}.')
-    st.subheader(ing + " " + 'Nutriton Information')
-    
-    sf_df= st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-    st.write(ingredients)
+    st.write(ingredient_string)
      
     insert_T= st.button('Submit Order')
     
